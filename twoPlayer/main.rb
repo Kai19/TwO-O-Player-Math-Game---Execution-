@@ -4,7 +4,6 @@
 require 'pry'
 require './game'
 require './player'
-require './questions'
 
 
 ## Your test code can go here
@@ -13,6 +12,5 @@ require './questions'
 p1 = Player.new
 p2 = Player.new
 
-game = Game.new(p1,p2)
-question = Questions.new
-game.game_start(question)
+game = Game.new(p1, p2)
+game.game_start

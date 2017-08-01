@@ -1,3 +1,4 @@
+require './questions'
 
 class Game
   def initialize(p1, p2)
@@ -7,8 +8,12 @@ class Game
     @current_play = false
   end
 
-  def game_start(question)
-    while @player1.health > 0 || @player2.health > 0
+  def game_start
+    while @player1.health > 0 && @player2.health > 0
+      question = Questions.new
+      the_question = question.question
+      the_answer = question.answer
+
       if @current_play === false
         @current_player = @player1
       else
@@ -16,22 +21,32 @@ class Game
       end
 
       if @current_player === @player1
-        puts "Player1: #{question}"
-        puts "P1: #{@player1.health}/3 vs P2: #{@player2.health}/3"
+        puts "Player1: #{the_question}"
       else
-        puts "Player2: #{question}"
-        puts "P1: #{@player1.health}/3 vs P2: #{@player2.health}/3"
+        puts "Player2: #{the_question}"
       end
 
       player_ans = gets.chomp
-      if question != player_ans
+      if the_answer != player_ans.to_i
           @current_player.health -= 1
-          @current_play = !@current_play
+        puts "Seriously? No!"
+      else
+        puts "YES! You are correct!"
       end
-      puts "- - - - - NEW TURN - - - - -"
+
+      if @player1.health > 0 && @player2.health > 0
+        puts "P1: #{@player1.health}/3 vs P2: #{@player2.health}/3"
+        puts "- - - - - NEW TURN - - - - -"
+        @current_play = !@current_play
+      else
+        if @player1.health > 0
+          puts "Player 1 wins with #{@player1.health}/3"
+        else
+          puts "Player 2 wins with #{@player2.health}/3"
+        end
+        puts "- - - - - GAME OVER - - - - -"
+        puts "Good bye!"
+      end
     end
-
-    puts "- - - - - GAME OVER - - - - -"
   end
-
 end
