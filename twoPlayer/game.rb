@@ -29,7 +29,7 @@ class Game
       player_ans = gets.chomp
       if the_answer != player_ans.to_i
           @current_player.health -= 1
-        puts "Seriously? No!"
+        puts "Nop! But you got this!"
       else
         puts "YES! You are correct!"
       end
